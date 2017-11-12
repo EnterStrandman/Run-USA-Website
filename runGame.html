@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Run USA-Home</title>
+	<title>Run USA-Game</title>
 	<link rel = "stylesheet" href="BootStrapLearning.css">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -24,7 +24,7 @@
 					      <ul class="nav navbar-nav navbar-right">
 					      	<li><a href="aboutUs.html">About Us</a></li>
 					        <li><a href="conversionCalc.html">Pace Calculator</a></li>
-					        <li><a href="runGame.html">Run!!!</a></li>
+
 					        <li class="dropdown">
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workouts<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
@@ -35,6 +35,7 @@
 						          	<li><a href="authors.html">Meet the Authors</a></li>
 						          </ul>
 						    </li>
+
 					        <li class="dropdown">
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weekly Awards<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
@@ -54,46 +55,159 @@
 			</div>
 		</header>
 <body>
+<div class="container">
 
-<!-- MAIN CONTENT-->
-<div class = "container">
-	<div class = "row">
-		<div class = "col-sm-3 col-xs-6">
-			<div class="panel panel-primary">
-			  	<div class="panel-heading" style = "text-align: center; margin-right: 0; margin-left: 0;">Coach of the Week</div>
-			  		<div class="panel-body">
-			  			<div class = "myPanel">
-			    			<div class="panel-body">
-			                    <img class="img-responsive" src="https://scontent-ort2-1.xx.fbcdn.net/v/t1.0-9/21742933_998807586928909_3649696221197514778_n.jpg?oh=dd33a9d5842b66719cfc872ceb3c3971&oe=5A7470D5" class="img-rounded" id="Panel_Image">
-			                     <a href="coachAward.html"><h3 style = "text-align: center; color: rgb(0, 153, 255);">Howard Nippert</h3></a>
-			                </div>
-			    		</div>
-			  		</div>
-			</div>
-		</div>
+	
 
-			<div class = "col-sm-6 col-xs-8">
-				<div class="embed-responsive embed-responsive-4by3">
-				  <iframe class="embed-responsive-item" alt = "flotrack" src="http://www.flotrack.com"></iframe>
-				</div>
-			</div>
+	<script>
+		var canvas = document.createElement("canvas");
+		var ctx = canvas.getContext("2d");
+		canvas.width = 800;
+		canvas.height = 600;
+		document.body.appendChild(canvas);
 
-			<div class = "col-sm-3 col-xs-6">
-			<div class="panel panel-primary">
-			  	<div class="panel-heading" style = "text-align: center; margin-right: 0; margin-left: 0;">Athlete of the Week</div>
-			  		<div class="panel-body">
-			  			<div class = "myPanel">
-			    			<div class="panel-body">
-			                    <img class="img-responsive" style="padding-top: 40px; padding-bottom: 30px;" src="https://i.pinimg.com/736x/48/32/53/483253be4cf3210910e1ec59033d8090--running-man-marathon-running.jpg" class="img-rounded" id="Panel_Image">
-			                    <a href="athleteAward.html"><h3 style = "text-align: center; color: rgb(0, 153, 255);">Galen Rupp</h3>
-			                </div>
-			    		</div>
-			  		</div>
-			</div>
-		</div>
-		</div>
-	</div>
+		var bgReady = false;
+		var bgImage = new Image();
+		bgImage.onload = function () {
+			bgReady = true;
+		};
+		bgImage.src = "grass.png";
+
+	// Car image
+	var carReady = false;
+	var carImage = new Image();
+	carImage.onload = function () {
+		carReady = true;
+	};
+	carImage.src = "sprite.png";
+
+	// Traffic image
+	var trafficReady = false;
+	var trafficImage = new Image();
+	trafficImage.onload = function () {
+		trafficReady = true;
+	};
+	trafficImage.src = "waterBottle.png";
+
+	// Game objects
+	var car = {
+		speed: 250 // movement in pixels per second
+	};
+	var traffic = {
+
+	};
+	var trafficsCaught = 0;
+
+	// Handle keyboard controls
+	var keysDown = {};
+
+
+	addEventListener("keydown", function (e) {
+		keysDown[e.keyCode] = true;
+	}, false);
+
+	addEventListener("keyup", function (e) {
+		delete keysDown[e.keyCode];
+	}, false);
+
+	// start the game when the player hits traffic
+	var start = function () {
+		car.x = canvas.width / 2;
+		car.y = canvas.height / 2;
+
+		// Throw the traffic somewhere on the screen randomly
+		traffic.x = 32 + (Math.random() * (canvas.width - 100));
+		traffic.y = 32 + (Math.random() * (canvas.height - 100));
+			
+	};
+
+
+	// Update game objects
+	var update = function (modifier) {
+		if (38 in keysDown) { // Player holding up
+			car.y -= car.speed * modifier;
+		}
+		if (40 in keysDown) { // Player holding down
+			car.y += car.speed * modifier;
+		}
+		if (37 in keysDown) { // Player holding left
+			car.x -= car.speed * modifier;
+		}
+		if (39 in keysDown) { // Player holding right
+			car.x += car.speed * modifier;
+		}
+
+
+
+
+		// Are they touching?
+		if (
+			car.x <= (traffic.x + 32)
+			&& traffic.x <= (car.x + 32)
+			&& car.y <= (traffic.y + 32)
+			&& traffic.y <= (car.y + 32)
+		) {
+			++trafficsCaught;
+			start();
+		}
+	};
+
+	// Draw everything
+	var render = function () {
+		if (bgReady) {
+			ctx.drawImage(bgImage, 0, 0);
+		}
+
+		if (carReady) {
+			ctx.drawImage(carImage, car.x, car.y);
+		}
+
+		if (trafficReady) {
+			ctx.drawImage(trafficImage, traffic.x, traffic.y);
+		}
+
+		// Score
+		ctx.fillStyle = "rgb(250, 250, 250)";
+		ctx.font = "24px Helvetica";
+		ctx.textAlign = "left";
+		ctx.textBaseline = "top";
+		ctx.fillText("Collect the Water Bottles! You've collected " + trafficsCaught + " bottles", 25, 35 );
+
+		if (trafficsCaught == 10) {
+			alert("You have hydrated well!")
+		}
+	};
+
+	// The main game loop
+	var main = function () {
+		var now = Date.now();
+		var delta = now - then;
+
+		update(delta / 1000);
+		render();
+
+		then = now;
+		
+
+		// Request to do this again ASAP
+		requestAnimationFrame(main);
+	};
+
+
+	// Let's play this game!
+	var then = Date.now();
+	start();
+	main();
+
+
+
+
+	</script>
 </div>
+
+
+
+
 </body>
 
 
