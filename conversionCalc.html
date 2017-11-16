@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Run USA-Conversion Calc</title>
+	<title>Run USA-Pace Calc</title>
 	<link rel = "stylesheet" href="BootStrapLearning.css">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -10,7 +10,7 @@
 </head>
 
 	<!--DEFAULT NAV BAR FROM BOOTSTRAP-->
-	
+		
 		<header class = "navbar">
 			<div class = "container">
 				<nav class="navbar navbar-inverse">
@@ -24,18 +24,8 @@
 					      <ul class="nav navbar-nav navbar-right">
 					      	<li><a href="aboutUs.html">About Us</a></li>
 					        <li><a href="conversionCalc.html">Pace Calculator</a></li>
-
-					        <li class="dropdown">
-						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile<span class="caret"></span></a>
-						          <ul class="dropdown-menu">
-						          	<li><a href="logIn.php">Log In</a></li>
-						          	<li role="separator" class="divider"></li>
-						          	<li><a href="register.php">Register</a></li>
-						          	<li role="separator" class="divider"></li>
-						          	<li><a href="profile.php">Profile</a></li>
-						          </ul>
+					        <li><a href="runGame.html">Run!!!</a></li>
 						    </li>
-
 					        <li class="dropdown">
 						        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Weekly Awards<span class="caret"></span></a>
 						          <ul class="dropdown-menu">
@@ -55,28 +45,27 @@
 			</div>
 		</header>
 <body>
+
+
+
+
 <!-- MAIN CONTENT-->
 <div class="container">
 	<div class = "col-sm-12">
 		<div class = "middle">
-			<form id="paceCalcFormMile" oninput="resultValM.value=(((parseInt(timeConvHM.value) *3600) + (parseInt(timeConvMM.value) *60) + (parseInt(timeConvSM.value))) / parseInt(distanceM.value))/60">
+			<form id="paceCalcForm">
 				<h1>Pace Calculator</h1>
 				Please fill all fields for an accurate result<br>
-					<label>Time </label>
-					<input id = "timeConvHM" type = "number"  placeholder="Hours" min="0">
-					<input id = "timeConvMM" type = "number" placeholder="Min" min="0">
-					<input id = "timeConvSM" type = "number" placeholder="Sec" min="0"><br>
-					<label for = "distanceM">Distance(Miles) </label>
-					<input id = "distanceM" value = "1" type = "text">	
-					<hr style="width: 80%;">				    					
-			</form>
-			<form id="paceCalcFormKM" oninput="resultValKM.value=(((parseInt(timeConvHKM.value) *3600) + (parseInt(timeConvMKM.value) *60) + (parseInt(timeConvSKM.value))) / parseInt(distanceKM.value))/60">
-					<label>Time </label>
-					<input id = "timeConvHKM" type = "number"  placeholder="Hours" min="0">
-					<input id = "timeConvMKM" type = "number" placeholder="Min" min="0">
-					<input id = "timeConvSKM" type = "number" placeholder="Sec" min="0"><br>
-					<label for = "distanceKM">Distance(KM) </label>
-					<input id = "distanceKM" value = "1" type = "text">					    					
+					<input id = "timeConvH" type = "number"  placeholder="Hours" min="0">
+					<output></output>
+					<input id = "timeConvM" type = "number" placeholder="Min" min="0">
+					<output></output>
+					<input id = "timeConvS" type = "number" placeholder="Sec" min="0"><br>
+					<output></output>
+					<input id = "distanceM" type = "text" placeholder="Distance(Miles)">
+					<hr style="width: 80%;">	
+					<button type="button" id="calculate_btn">Calculate</button>
+									    					
 			</form>
 		</div>
 	</div>
@@ -85,19 +74,8 @@
 			<form>
 				<h1>Results</h1><br>
 				<label>Pace per Mile...</label><br>
-				<output form="paceCalcFormMile" name="t" for="timeConvHM timeConvMM timeConvSM">Complete the above form</output>
-				<label>Pace per Kilometer...</label><br>
-				<script>
-					var fraction = resultValM;
-					var hours = Math.floor(fraction); // extract the hours (in 24 hour format)
-					var mins = 60 * (fraction - hours); // calculate the minutes
-					t = new Date(); // create a date/time object
-
-					t.setHours(hours); // set the hours
-					t.setMinutes(mins); // set the mins
-					
-				</script>	
-				<output form="paceCalcFormKM" name="resultValKM" for="timeConvHKM timeConvMKM timeConvSKM">Complete the above form</output>
+				<p id="paceM" style="background-color: #b2b2b2;"/>
+				
 			</form>
 		
 	</div>
@@ -105,7 +83,36 @@
 </div>
 	
 
+<script type="text/javascript">
+	
 
+	var distanceInput = document.getElementById("distanceM"),
+		hoursInput = document.getElementById("timeConvH"),
+		minutesInput = document.getElementById("timeConvM"),
+		secondsInput = document.getElementById("timeConvS"),
+		calculateBtn = document.getElementById("calculate_btn"),
+		paceMText = document.getElementById("paceM");
+		
+
+	calculateBtn.addEventListener("click", function() {
+		var miles = parseInt(distanceInput.value),
+			hours = parseInt(hoursInput.value),
+			minutes = parseInt(minutesInput.value),
+			seconds = parseInt(secondsInput.value);
+
+		var totalMinutes = hours * 60 + minutes + seconds / 60,
+			pace = totalMinutes / miles,
+			paceMinutes = Math.floor(pace),
+			paceSeconds = Math.round((pace - paceMinutes) * 60);
+
+		if(paceSeconds < 10) {
+			paceSeconds = "0" + paceSeconds;
+		}
+
+		paceM.textContent = "You need to run " + paceMinutes + ":" + paceSeconds + " minutes per mile.";
+	});
+
+</script>
 </body>
 
 
@@ -118,7 +125,7 @@
 				
 					<ul class="nav navbar-nav navbar-left">
 						<div class = "col-sm-12 col-xs-9" style ="color: rgba(0, 153, 255,.6)";">
-						    <li>E-Mail Us At: runUSA@runUSA.com</li>
+						    <li><a href = "mailto: runUSA@runUSA.com">E-Mail Us At: runUSA@runUSA.com</a></li>
 							<li>Or Call: 1-800-555-5555</li>
 							<li>&copy RunUSA 2017. All Rights Reserved.</a></li>
 						</div>
