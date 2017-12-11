@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Run USA-PhotoGallery</title>
+	<link rel = "stylesheet" href="BootStrapLearning.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+	<!--DEFAULT NAV BAR FROM BOOTSTRAP-->
+		
+        <header class = "navbar">
+            <div class = "container">
+                <nav class="navbar navbar-inverse">
+                      <div class="container-fluid">   
+                        <div class="navbar-header">         
+                              <a class="navbar-brand" href="index.html"></a>        
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                          <ul class="nav navbar-nav navbar-right">
+                            <li><a href="aboutUs.html">About Us</a></li>
+                            <li><a href="conversionCalc.html">Pace Calculator</a></li>
+                            <li><a href="runGame.html">Play</a></li>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Photos<span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="nyMarathonPG.html">New York Marathon 2017</a></li>
+                                    <li><a href="foamGlow.html">Foam Glow Run</a></li>
+                                  </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Awards<span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="athleteAward.html">Athlete of the Week</a></li>
+                                    <li><a href="coachAward.html">Coach of the Week</a></li>                                    
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="pastAthletes.html">Past Athletes</a></li>
+                                    <li><a href="pastCoaches.html">Past Coaches</a></li>
+                                  </ul>
+                            </li>
+                          </ul>
+                        </div><!-- /.navbar-collapse -->
+                      </div><!-- /.container-fluid -->
+                </nav>
+            </div>
+        </header>
+	<body>
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+ 
+        $('#myCarousel').carousel({
+                interval: 5000
+        });
+ 
+        //Handles the carousel thumbnails
+        $('[id^=carousel-selector-]').click(function () {
+        var id_selector = $(this).attr("id");
+        try {
+            var id = /-(\d+)$/.exec(id_selector)[1];
+            console.log(id_selector, id);
+            jQuery('#myCarousel').carousel(parseInt(id));
+        } catch (e) {
+            console.log('Regex failed!', e);
+        }
+    });
+        // When the carousel slides, auto update the text
+        $('#myCarousel').on('slid.bs.carousel', function (e) {
+                 var id = $('.item.active').data('slide-number');
+                $('#carousel-text').html($('#slide-content-'+id).html());
+        });
+});
+</script>
+
+<!--https://bootsnipp.com/snippets/featured/carousel-with-gallery-thumbs-->
+
+<div class="container">
+    <div id="main_area">
+        <!-- Slider -->
+        <div class="row">
+            <div class="col-sm-4" id="slider-thumbs">
+                <!-- Bottom switcher of slider -->
+                <ul class="hide-bullets">
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-0">
+                            <img src="http://lifecdn.dailyburn.com/life/wp-content/uploads/2013/08/LivingSocial-Glow-5K_2.jpg">
+                        </a>
+                    </li>
+
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-1"><img src="https://s3-eu-west-1.amazonaws.com/grm-assets/8442/image5.jpg"></a>
+                    </li>
+
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-2"><img src="http://theglorun.com/css/images/temp/intro-little-rock.png"></a>
+                    </li>
+
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-3"><img src="http://www.friscofreedomfest.org/ImageRepository/Document?documentID=640"></a>
+                    </li>
+
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-4"><img src="https://static1.squarespace.com/static/569e2f8ea12f44354e16f116/t/56a7de0189a60a721010ceb7/1453841922828/"></a>
+                    </li>
+
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-5"><img src="http://gilowveld.sites.caxton.co.za/wp-content/uploads/sites/97/2015/08/t1376802262_xcart.jpg"></a>
+                    </li>
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-6"><img src="https://static1.squarespace.com/static/527bb665e4b0cb566ecf346c/5335a089e4b02e9d2f85a916/5375605be4b05f3bc932d09e/1401305608581/?format=1500w"></a>
+                    </li>
+
+                    <li class="col-sm-6">
+                        <a class="thumbnail" id="carousel-selector-7"><img src="http://www.bargarabeachcaravanpark.com.au/wp-content/uploads/2017/03/img_1315.jpg"></a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-sm-8">
+                <div class="col-xs-12" id="slider">
+                    <!-- Top part of the slider -->
+                    <div class="row">
+                        <div class="col-sm-12" id="carousel-bounding-box">
+                            <div class="carousel slide" id="myCarousel">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    <div class="active item" data-slide-number="0">
+                                        <img src="http://lifecdn.dailyburn.com/life/wp-content/uploads/2013/08/LivingSocial-Glow-5K_2.jpg"></div>
+
+                                    <div class="item" data-slide-number="1">
+                                        <img src="https://s3-eu-west-1.amazonaws.com/grm-assets/8442/image5.jpg"></div>
+
+                                    <div class="item" data-slide-number="2">
+                                        <img src="http://theglorun.com/css/images/temp/intro-little-rock.png"></div>
+
+                                    <div class="item" data-slide-number="3">
+                                        <img src="http://www.friscofreedomfest.org/ImageRepository/Document?documentID=640"></div>
+
+                                    <div class="item" data-slide-number="4">
+                                        <img src="https://static1.squarespace.com/static/569e2f8ea12f44354e16f116/t/56a7de0189a60a721010ceb7/1453841922828/"></div>
+
+                                    <div class="item" data-slide-number="5">
+                                        <img src="http://gilowveld.sites.caxton.co.za/wp-content/uploads/sites/97/2015/08/t1376802262_xcart.jpg"></div>
+                                    
+                                    <div class="item" data-slide-number="6">
+                                        <img src="https://static1.squarespace.com/static/527bb665e4b0cb566ecf346c/5335a089e4b02e9d2f85a916/5375605be4b05f3bc932d09e/1401305608581/?format=1500w"></div>
+                                    
+                                    <div class="item" data-slide-number="7">
+                                        <img src="http://www.nyhabitat.com/blog/wp-content/uploads/2012/08/new-york-marathon-verrazano-bridge-aerial.jpg"></div>
+                                    
+                                    <div class="item" data-slide-number="8">
+                                        <img src="http://www.bargarabeachcaravanpark.com.au/wp-content/uploads/2017/03/img_1315.jpg"></div>
+                                </div>
+                                <!-- Carousel nav -->
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/Slider-->
+        </div>
+
+    </div>
+</div>
+
+
+	</body>
+
+
+<!-- FOOTER-->
+<footer>
+	<div class = "container">
+		<nav class="navbar navbar-inverse navbar-fixed-bottom">
+			<div class="container-fluid">   
+			<!-- Collect the nav links, forms, and other content for toggling -->
+				
+					<ul class="nav navbar-nav navbar-left">
+						<div class = "col-sm-12 col-xs-9" style ="color: rgba(0, 153, 255,.6)";">
+						    <li><a href = "mailto: runUSA@runUSA.com">E-Mail Us At: runUSA@runUSA.com</a></li>
+							<li>Or Call: 1-800-555-5555</li>
+							<li>&copy RunUSA 2017. All Rights Reserved.</a></li>
+						</div>
+					</ul>
+				
+			
+		
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<div class = "col-sm-12 col-xs-9">
+						<div class = "social icons">
+							<a href="http://www.facebook.com" class="fa fa-facebook" ></a>
+							<a href="http://www.twitter.com" class="fa fa-twitter"></a>
+							<a href="http://www.instagram.com" class="fa fa-instagram" ></a>
+						</div>
+				</ul>
+			</div>
+		</div>
+		</div>
+	</nav>
+		
+	
+</footer>
+
+
+
+<!-- Latest compiled and minified JavaScript FOR BOOTSTRAP -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</html>
